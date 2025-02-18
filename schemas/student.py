@@ -1,16 +1,12 @@
-#schemas helps to validate the data that we are receiving from the client
-# and also convert mongodb json data to the UI needed json data
-
+# Função para converter um documento MongoDB em um dicionário JSON
 def studentEntity(db_item) -> dict:
     return {
-        'id': str(db_item['_id']),
+        'id': str(db_item['_id']),  # Convertendo ObjectId para string
         'name': db_item['student_name'],
         'email': db_item['student_email'],
         'phone': db_item['student_phone']
     }
 
+# Converte uma lista de documentos MongoDB em uma lista de dicionários JSON
 def listOfStudentEntity(db_item_list) -> list:
-    list_stud_entity = []
-    for item in db_item_list:
-        list_stud_entity.append(studentEntity(item))
-    return list_stud_entity
+    return [studentEntity(item) for item in db_item_list]  # Usando list comprehension (ainda estudando)
