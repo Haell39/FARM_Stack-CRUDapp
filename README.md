@@ -9,7 +9,7 @@ Este projeto tem como objetivo criar uma aplicação full stack utilizando tecno
 ## 🛠️ Tecnologias Utilizadas  
 
 ✅ **Backend**: Python, FastAPI, PyMongo  
-✅ **Frontend**: React.js, JSX, Bootstrap  
+✅ **Frontend**: React.js, JSX.  
 ✅ **Banco de Dados**: MongoDB (NoSQL)  
 ✅ **Ferramentas**: Git/GitHub, Visual Studio Code  
 
