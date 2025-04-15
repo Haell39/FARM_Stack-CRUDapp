@@ -1,20 +1,24 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from models.student import Student
-from config.database import connection
+from config.database import db
 from schemas.student import studentEntity, listOfStudentEntity
 
-student_router = APIRouter()
+student_router = APIRouter(prefix="/students")
 
-@student_router.get('/student')
+# Buscar todos os estudantes
+@student_router.get('/')
 async def find_all_students():
-    return listOfStudentEntity(connection.local.student.find())
+    return listOfStudentEntity(db.student.find())
 
+# Rota de teste
 @student_router.get('/hello')
 async def hello_world():
-    return "Hello World"
+    return {"message": "Hello World"}
 
-#creating a new student
-@student_router.post('/students')
+# Criar um novo estudante
+@student_router.post('/')
 async def create_student(student: Student):
-    connection.local.student.insert_one(dict(student))
-    return listOfStudentEntity(connection.local.student.find())
+    new_student = dict(student)
+    result = db.student.insert_one(new_student)
+    new_student['_id'] = str(result.inserted_id)  # Convertendo ObjectId para string
+    return studentEntity(new_student)
